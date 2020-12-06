@@ -1,0 +1,28 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "A very simple script meant primarily for creating new accounts with the ability to add the account, make necessary changes to sudoers if it is to be part of an existing admin group (read parameter description for that).",
+  "parameters": {
+    "username": {
+      "description": "The username for the account to be created",
+      "type": "Optional[String[1]]"
+    },
+    "password": {
+      "description": "The password for the account to be created",
+      "type": "Optional[String]",
+      "sensitive": true
+    },
+    "group": {
+      "description": "The additional group that should be created, and have the user added to. This was intended to allow for specific Puppet Bolt user accounts that may be treated differently by SSH and should thus not be directly added to the sudo group.",
+      "type": "Optional[String]"
+    },
+    "addgrouptosudoers": {
+      "description": "[y|n] A parameter flagging if the *group* should be added to the sudoers via a seperate file under /etc/sudoer.d",
+      "type": "Optional[String[1]]"
+    },
+    "addusertosudo": {
+      "description": "[y|n] A parameter flagging if the user should be directly added to the sudo group.",
+      "type": "Optional[String[1]]"
+    }
+  }
+}

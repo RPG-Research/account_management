@@ -1,0 +1,20 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "This task is designed to allow modifications to the sshd_config file with a particular focus in adding or modifying 'Match Group groupname' sections. It is worth noting that this script assumes the Match Group sections have the group specific parameters formatted with some kind of whitespace, and may break in other formats.",
+  "parameters": {
+    "group": {
+      "description": "The group to be added to the SSH file with a Match Group.",
+      "type": "String[1]"
+    },
+    "sshdconfiglocation": {
+      "description": "If, for some strange reason, the config for ssh is not in the typical /etc/ssh/sshd_config location, then it can be stipulated here as a string.",
+      "type": "Optional[String[1]]",
+      "default": "/etc/ssh/sshd_config"
+    },
+    "pubkeyauth": {
+       "description": "[y|n] for enabling or disabling the requirement to use SSH keys.",
+       "type": "Optional[String[1]]"
+    }
+  }
+}
