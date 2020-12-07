@@ -13,6 +13,7 @@ Added parameters to remove_user to make it actually usable.
 
 Corrected an error in remove_user relating to a typo'd and breaking if ..;then
 
+Removed an erroneous stdout that was left over from a previous version.
 
 **Known Issues**
 
