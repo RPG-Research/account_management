@@ -2,15 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
-## Release 0.1.0
+## Release 0.1.1
 
 **Features**
 
-Current features are limited.
+Added parameters to remove_user to make it actually usable.
 
-There is a create user script. A remove user script. And a in progress script to modify the SSHd config for adding, removing, or changing a section for a particular group (i.e. remove passwords for a Puppet Bolt group).
 
 **Bugfixes**
+
+Corrected an error in remove_user relating to a typo'd and breaking if ..;then
+
 
 **Known Issues**
 

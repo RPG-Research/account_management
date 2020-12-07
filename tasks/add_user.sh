@@ -17,7 +17,7 @@ if [ ! -z $PT_username ]; then
 			echo $PT_username:$PT_password | chpasswd
 		fi
 	elif [ ! -z $PT_password ]; then
-		echo "$PT_username created with the supplied password. Added $PT_username to $PT_group group."
+		echo "$PT_username created with the supplied password."
 		useradd -m -s /bin/bash $PT_username 
 		echo $PT_username:$PT_password | chpasswd
 	else

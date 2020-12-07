@@ -10,11 +10,11 @@ fi
 
 if [ ! -z $PT_username ]; then
 	id -u $PT_username &> /dev/null
-	if [ $? -eq 0 ]; the
+	if [ $? -eq 0 ]; then
 		echo "Account exists, removing..."
-		if [[ $PT_removeFiles == 'true' ]]; then
+		if [[ $PT_removefiles == 'true' ]]; then
 			userdel -r $PT_username
-		elif [[ $PT_removeFile == 'false' ]]; then
+		elif [[ $PT_removefiles == 'false' ]]; then
 			userdel $PT_username
 		fi
 	elif [[ $? -eq 1 ]] || [[ $? -eq 2 ]]; then
