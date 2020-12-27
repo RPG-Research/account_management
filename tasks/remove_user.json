@@ -3,5 +3,14 @@
   "supports_noop": false,
   "description": "A short description of this task",
   "parameters": {
+    "username": {
+      "description": "The username for the account to be removed.",
+      "type": "String[1]"
+    },
+    "removefiles": {
+      "description": "If True, the users Home folder is removed with all of its contents. Default is false to prevent accidental removal of potentially proprietary or needed files in the terminated users directory.",
+      "type": "String[1]",
+      "default": "false"
+    }
   }
 }

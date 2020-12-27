@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## Release 0.1.0
+## Release 0.1.1
 
 **Features**
 
@@ -11,6 +11,10 @@ Current features are limited.
 There is a create user script. A remove user script. And a in progress script to modify the SSHd config for adding, removing, or changing a section for a particular group (i.e. remove passwords for a Puppet Bolt group).
 
 **Bugfixes**
+
+Fixed group file creation under sudoers.d in add_user.sh by correcting the noexistent $group variable to $PT_group.
+
+Fixed logic for add_user.sh so that it knows to check sudoers.d whether or not the group needs to be created.
 
 **Known Issues**
 

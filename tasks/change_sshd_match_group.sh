@@ -8,10 +8,20 @@ if [ $(whoami) != root ]; then
         exit 1
 fi
 
+DATE="$(date +"%F-%H-%M-%S")"
 changeFlag=0
 
 if [[ $PT_group ]]; then
-	if [[ $(grep $PT_group $PT_sshdconfiglocation) == "Match Group $PT_group" ]]; then
+	if [[ ! -e $PT_sshdconfiglocation ]]; then
+		echo "sshd_config location is invalid! If not set via a parameter, than the target server may not use the default location."
+		exit 2
+
+	elif [[ $(grep $PT_group $PT_sshdconfiglocation) != "Match Group $PT_group" ]]; then
+		cp $PT_sshdconfiglocation $PT_sshdconfiglocation.bak.$DATE
+		echo -e "\nMatch Group $PT_group" >> $PT_sshdconfiglocation
+
+	elif [[ $(grep $PT_group $PT_sshdconfiglocation) == "Match Group $PT_group" ]]; then
+		cp $PT_sshdconfiglocation $PT_sshdconfiglocation.bak.$DATE
 		sshdSectionOrig=$(grep -Pzo "(Match Group $PT_group)(\n(\t|\s+)\w.+)*" $PT_sshd_config_location)
 		
 		if [[ $(expr match $PT_pubkeyauth '^\(y\|Y\)') ]]; then
@@ -23,15 +33,15 @@ if [[ $PT_group ]]; then
 				sshdSectionNew=$(echo $sshdSectionOrig | sed -e 's/PubkeyAuthentication no/PubkeyAuthentication yes/g')
 				changeFlag=1
 			elif [[ -z $grepForPubkeyEntry ]]; then
-				sshdSectionNew=$(echo -e "$sshdSectionOrig" "\n\tPubkeyAuthentication yes")
+				sshdSectionNew=$(echo -e "$sshdSectionOrig \n\tPubkeyAuthentication yes")
+				echo -e $sshdSectionNew
+				echo -e $sshdSectionOrig
+				sed -i "s/$sshdSectionOrig/$sshdSectionNew/g" $PT_sshdconfiglocation
 			fi 
 		fi
 		if [[ $changeflag -eq 1 ]]; then
 			sed -i "s/$sshdSectionOrig/$sshdSectionNew/g" $PT_sshdconfiglocation
 		fi
-	elif [[ ! -e $PT_sshd_config_location ]]; then
-		echo "sshd_config location is invalid!"
-		exit 2
 	else
 		echo "An unhandled exception of some kind occurred."
 	fi

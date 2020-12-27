@@ -17,7 +17,7 @@ if [ ! -z $PT_username ]; then
 			echo $PT_username:$PT_password | chpasswd
 		fi
 	elif [ ! -z $PT_password ]; then
-		echo "$PT_username created with the supplied password. Added $PT_username to $PT_group group."
+		echo "$PT_username created with the supplied password."
 		useradd -m -s /bin/bash $PT_username 
 		echo $PT_username:$PT_password | chpasswd
 	else
@@ -43,13 +43,19 @@ if [ ! -z $PT_group ]; then
 			echo "Adding $PT_username to $PT_group"
 			usermod -aG $PT_group $PT_username
 		fi
+	fi
+	if [[ $(getent group $PT_group) ]] && [[ ! $(grep $PT_group /etc/sudoers.d/*) ]]; then
 		if [ $(expr match $PT_addgrouptosudoers '^\(y\|Y\)') ]; then
-			echo "Adding sudoers entry for group in /etc/sudoer.d."
-			echo -e "\n#Line added by admin via Puppet Bolt script \n%$PT_group    ALL=(ALL:ALL) ALL" >> /etc/sudoers.d/$group
-		elif [ $(expr match $PT_addgrouptosudoers '^\(n\|N\)' ) ]; then
-			echo "Skipping adding group to sudoers. 'N' or 'n' given in parameter. "
-		elif [ ! -z $PT_addgrouptosudoers ]; then
-			echo "Entry for addsudoers parameter is invalid. Needs to be either y or Y."
-		fi
+                        echo "Adding sudoers entry for group in /etc/sudoer.d."
+                        echo -e "\n#Line added by admin via Puppet Bolt script \n%$PT_group    ALL=(ALL:ALL) ALL" >> /etc/sudoers.d/$PT_group
+                elif [ $(expr match $PT_addgrouptosudoers '^\(n\|N\)' ) ]; then
+                        echo "Skipping adding group to sudoers. 'N' or 'n' given in parameter. "
+                elif [ ! -z $PT_addgrouptosudoers ]; then
+                        echo "Entry for addsudoers parameter is invalid. Needs to be either y or Y."
+                fi
+	elif [[ $(grep $PT_group /etc/sudoers.d/*) ]]; then
+		echo "Group $PT_group already appears under sudoer.d"
+	else
+		echo "Uncaught exception in creating sudoers.d entry for group $PT_group"
 	fi
 fi
