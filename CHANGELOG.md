@@ -14,6 +14,8 @@ There is a create user script. A remove user script. And a in progress script to
 
 Fixed group file creation under sudoers.d in add_user.sh by correcting the noexistent $group variable to $PT_group.
 
+Fixed logic for add_user.sh so that it knows to check sudoers.d whether or not the group needs to be created.
+
 **Known Issues**
 
 OS specific to Linux.
