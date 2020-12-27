@@ -45,7 +45,7 @@ if [ ! -z $PT_group ]; then
 		fi
 		if [ $(expr match $PT_addgrouptosudoers '^\(y\|Y\)') ]; then
 			echo "Adding sudoers entry for group in /etc/sudoer.d."
-			echo -e "\n#Line added by admin via Puppet Bolt script \n%$PT_group    ALL=(ALL:ALL) ALL" >> /etc/sudoers.d/$group
+			echo -e "\n#Line added by admin via Puppet Bolt script \n%$PT_group    ALL=(ALL:ALL) ALL" >> /etc/sudoers.d/$PT_group
 		elif [ $(expr match $PT_addgrouptosudoers '^\(n\|N\)' ) ]; then
 			echo "Skipping adding group to sudoers. 'N' or 'n' given in parameter. "
 		elif [ ! -z $PT_addgrouptosudoers ]; then

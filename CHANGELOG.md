@@ -2,18 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
-## Release 0.1.1
+## Release 0.1.2
 
 **Features**
-
-Added parameters to remove_user to make it actually usable.
 
 
 **Bugfixes**
 
-Corrected an error in remove_user relating to a typo'd and breaking if ..;then
-
-Removed an erroneous stdout that was left over from a previous version.
+Fixed group file creation under sudoers.d in add_user.sh by correcting the noexistent $group variable to $PT_group.
 
 **Known Issues**
 
