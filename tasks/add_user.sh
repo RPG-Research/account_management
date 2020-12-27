@@ -44,7 +44,7 @@ if [ ! -z $PT_group ]; then
 			usermod -aG $PT_group $PT_username
 		fi
 	fi
-	if [[ $(getent group $PT_group) ]] || [[ ! $(grep PT_group /etc/sudoers.d/*) ]]; then
+	if [[ $(getent group $PT_group) ]] && [[ ! $(grep $PT_group /etc/sudoers.d/*) ]]; then
 		if [ $(expr match $PT_addgrouptosudoers '^\(y\|Y\)') ]; then
                         echo "Adding sudoers entry for group in /etc/sudoer.d."
                         echo -e "\n#Line added by admin via Puppet Bolt script \n%$PT_group    ALL=(ALL:ALL) ALL" >> /etc/sudoers.d/$PT_group
@@ -53,7 +53,7 @@ if [ ! -z $PT_group ]; then
                 elif [ ! -z $PT_addgrouptosudoers ]; then
                         echo "Entry for addsudoers parameter is invalid. Needs to be either y or Y."
                 fi
-	elif [[ $(grep PT_group /etc/sudoers.d/*) ]]; then
+	elif [[ $(grep $PT_group /etc/sudoers.d/*) ]]; then
 		echo "Group $PT_group already appears under sudoer.d"
 	else
 		echo "Uncaught exception in creating sudoers.d entry for group $PT_group"
