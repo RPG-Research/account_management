@@ -9,9 +9,8 @@ if [ $(whoami) != root ]; then
 fi
 
 DATE="$(date +"%F-%H-%M-%S")"
-changeFlag=0
-echo "Group is: "$PT_group
-echo "sshd_config is:" $PT_sshdconfiglocation
+echo "Group provided is: "$PT_group
+echo "Location of sshd_config is:" $PT_sshdconfiglocation
 
 passwordauth () {
 	# Presently lacking code for switching password auth on yet ...
