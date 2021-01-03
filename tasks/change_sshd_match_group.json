@@ -13,7 +13,11 @@
       "default": "/etc/ssh/sshd_config"
     },
     "pubkeyauth": {
-       "description": "[y|n] for enabling or disabling the requirement to use SSH keys.",
+       "description": "[y|n] for enabling or disabling whether SSH keys are allowed for a group.",
+       "type": "Optional[String[1]]"
+    },
+    "passwordauth": {
+       "description": "[y|n] for enabling or disabling whether password authentication is allowed for a group.",
        "type": "Optional[String[1]]"
     }
   }
