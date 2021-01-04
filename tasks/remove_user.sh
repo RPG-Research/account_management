@@ -2,6 +2,7 @@
 
 # Puppet Task Name: remove_user
 #
+# Please refer to remove_user.json for a quick overview and parameters. "bolt task show account_management::remove_user" would return this informationaswell.
 
 if [ $(whoami) != root ]; then
 	echo "Not running as root, use '--run-as root' and '--sudo-password-prompt'"

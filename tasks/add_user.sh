@@ -2,6 +2,7 @@
 
 # Puppet Task Name: add_user
 #
+#Please refer to add_user.json for a quick overview and parameters. "bolt task show account_management::add_user" would return this information aswell.
 
 if [ $(whoami) != root ]; then
 	echo "Not running as root, use '--run-as root' and '--sudo-password-prompt'"

@@ -1,7 +1,7 @@
 {
   "puppet_task_version": 1,
   "supports_noop": false,
-  "description": "This task is designed to allow modifications to the sshd_config file with a particular focus in adding or modifying 'Match Group groupname' sections. It is worth noting that this script assumes the Match Group sections have the group specific parameters formatted with some kind of whitespace, and may break in other formats.",
+  "description": "This task is designed to allow modifications to the sshd_config file with a particular focus in adding or modifying 'Match Group groupname' sections. It is worth noting that this script assumes the Match Group sections have the group specific parameters formatted with some kind of whitespace, tabs \t in particular, and may break in other formats.",
   "parameters": {
     "group": {
       "description": "The group to be added to the SSH file with a Match Group.",
