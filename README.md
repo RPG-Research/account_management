@@ -1,7 +1,7 @@
 # account-management
 
-This is a Puppet Bolt module generated using PDK. A short overview of the generated parts can be found
-in the PDK documentation.
+This is a Puppet Bolt module generated using PDK. A short overview of the generated parts can be found in the PDK documentation.
+
 
 The README template below provides a starting point with details about what
 information to include in your README.
@@ -61,4 +61,3 @@ Amateurishly written, and handling of passwords for new accounts should not be c
 Nothing here as of yet.
 
 # account_management
-
