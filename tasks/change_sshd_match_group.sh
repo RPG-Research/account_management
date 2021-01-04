@@ -8,32 +8,29 @@ if [ $(whoami) != root ]; then
         exit 1
 fi
 
-DATE="$(date +"%F-%H-%M-%S")"
-echo "Group provided is: "$PT_group
-echo "Location of sshd_config is:" $PT_sshdconfiglocation
-
 passwordauth () {
 	# Presently lacking code for switching password auth on yet ...
 	# $1 is expected to be the parameter, $2 is expected to be the group name, $3 is expected to be the sshd_config location 
 	if [[ $(expr match $1 '^\(n\|N\)') ]]; then
 		sshdSectionOrig=$(grep -Pzo "(Match Group $PT_group)(\n(\t|\s+)\w.+)*" $PT_sshdconfiglocation)
-		grepForPubkeyEntry=$(echo "$sshdSectionOrig" | grep PubkeyAuthentication | sed -e 's/\t//g')
+		grepForPubkeyEntry=$(echo "$sshdSectionOrig" | grep PasswordAuthentication | sed -e 's/\t//g')
 		echo "passwordauth parameter is 'No'..."
 		if [[ $grepForPasswordEntry == "PasswordAuthentication no" ]]; then
 			echo "Entry for PasswordAuthentication is already present as 'no'"
 			echo "$sshdSectionOrig"
 		elif [[ $grepForPubkeyEntry == "PasswordAuthentication no" ]]; then
 			echo "PubkeyAuthentication set to no, changing...."
-			awk -i inplace -v group="$2" -v addedText="\tPasswordAuthentication no" -v origText="\tPasswordAuthentication yes" '/Match Group '$group'/,/^$/ {gsub(origText, addedText)};{print; 1}' $3
+			awk -i inplace -v group="$2" -v addedText="\tPasswordAuthentication no\n" -v origText="\tPasswordAuthentication yes" '/Match Group '$group'/,/^$/ {gsub(origText, addedText)};{print; 1}' $3
 		elif [[ -z $grepForPasswordEntry ]]; then
 			echo "PasswordAuthentication not found, adding this entry..."
-			awk -i inplace -v group="$2" -v addedText="\tPasswordAuthentication no" '/Match Group '$group'/,/^$/ {gsub(/^$/, addedText)};{print; 1}' $3
+			awk -i inplace -v group="$2" -v addedText="\tPasswordAuthentication no\n" '/Match Group '$group'/,/^$/ {gsub(/^$/, addedText)};{print; 1}' $3
 		fi
 	fi
 }
 
 pubkeyauth () {
 	# Presently lacking code for switching pubkeyauth off...
+	# $1 is expected to be the parameter, $2 is expected to be the group name, $3 is expected to be the sshd_config location
 	if [[ $(expr match $PT_pubkeyauth '^\(y\|Y\)') ]]; then
 		sshdSectionOrig=$(grep -Pzo "(Match Group $2)(\n(\t|\s+)\w.+)*" $3)
 		echo "pubkeyauth parameter is true..."
@@ -52,6 +49,10 @@ pubkeyauth () {
 }
 
 if [[ $PT_group ]]; then
+	DATE="$(date +"%F-%H-%M-%S")"
+	echo "Group provided is: "$PT_group
+	echo "Location of sshd_config is:" $PT_sshdconfiglocation
+
 	if [[ ! -e $PT_sshdconfiglocation ]]; then
 		echo "sshd_config location is invalid! If not set via a parameter, than the target server may not use the default location."
 		exit 2
@@ -63,7 +64,7 @@ if [[ $PT_group ]]; then
 		echo $PT_group "section found"
 	fi
 
-	echo $sshdSectionOrig
+	# Here we launch the actual functions defined above
 
 	if [[ $(expr match $PT_pubkeyauth '^\(\(n\|N\)\|\(y\|Y\)\)') ]]; then
 		pubkeyauth "$PT_pubkeyauth" "$PT_group" "$PT_sshdconfiglocation"
