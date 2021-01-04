@@ -2,6 +2,7 @@
 	
 # Puppet Task Name: change_sshd_match_group
 #
+# Please refer to change_sshd_match_group.json for a quick overview and parameters. "bolt task show account_management::change_sshd_match_group" would return this information aswell.
 
 if [ $(whoami) != root ]; then
         echo "Not running as root, use '--run-as root' and possibly '--sudo-password-prompt'"
