@@ -1,7 +1,7 @@
 # account-management
 
-This is a Puppet Bolt module generated using PDK. A short overview of the generated parts can be found
-in the [PDK documentation][1].
+This is a Puppet Bolt module generated using PDK. A short overview of the generated parts can be found in the PDK documentation.
+
 
 The README template below provides a starting point with details about what
 information to include in your README.
@@ -27,6 +27,8 @@ Many tasks/scripts may be best moved into seperate scripts/tasks to reduce the n
 of needed parameters and to clarify the purpose/abilities of each script to reduce the necessity
 of documentation/reading.
 
+There are currently no Bolt Plans under this project, and all scripts are in Bash.
+
 ## Setup
 
 ### What account_management affects **OPTIONAL**
@@ -39,15 +41,14 @@ following directories on target machines: /etc/passwd, /etc/shadow, /etc/sudoers
 
 An existing Bolt project is needed, and the user account on the remote system needs to have bash available.
 
-Git clone this repo to your site-modules/.
-
 ### Beginning with account_management
 
 
 ## Usage
 
-To be updated.. Apologies.
+Git clone this repo to your site-modules/.
 
+try "bolt task show account_management::add_user" or "bolt task show account_management::change_sshd_match_group". You will need to "bolt task run" with the right parameters. 
 
 ## Limitations
 

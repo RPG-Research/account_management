@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## Release 0.1.1
+## Release 0.1.2
 
 **Features**
 
@@ -19,6 +19,8 @@ Fixed logic for add_user.sh so that it knows to check sudoers.d whether or not t
 **Known Issues**
 
 OS specific to Linux.
+
+Current naming conventions of variables are inconsistent. Typically camel casing is used, underscores "_" are generally ugly but Puppet Bolt flips when you do camel casing, so right now some variables are all lower case with no symbols with exception to the filenames themselves which have "_".
 
 Not yet tested for BSD based OS', but should be compatible if the account used has access to Bash (but some commands in these scripts may break).
 
