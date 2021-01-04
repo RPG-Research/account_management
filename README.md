@@ -34,7 +34,7 @@ There are currently no Bolt Plans under this project, and all scripts are in Bas
 ### What account_management affects **OPTIONAL**
 
 Depending on the task and parameters, this module can be expected to affect the contents of the
-following directories on target machines: /etc/passwd, /etc/shadow, /etc/sudoers.d/*, /etc/ssh/sshd_config,
+following directories on target machines: /etc/passwd, /etc/shadow, /etc/sudoers.d/, /etc/ssh/sshd_config,
 /home/*.
 
 ### Setup Requirements **OPTIONAL**
@@ -58,8 +58,7 @@ Amateurishly written, and handling of passwords for new accounts should not be c
 
 ## Development
 
-In the Development section, tell other users the ground rules for contributing
-to your project and how they should submit their work.
+Nothing here as of yet.
 
 # account_management
 
